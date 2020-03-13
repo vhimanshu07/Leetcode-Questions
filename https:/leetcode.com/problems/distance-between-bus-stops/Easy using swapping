@@ -1,0 +1,21 @@
+class Solution {
+public int distanceBetweenBusStops(int[] dist, int s, int d) {
+int t=0;
+if(d<s)
+{
+int g=d;
+d=s;
+s=g;
+}
+for(int i=s;i<d;i++)
+{
+t+=dist[i%dist.length];
+}
+int f=0;
+for(int i=d;i<(dist.length+s);i++)
+{
+f+=dist[i%dist.length];
+}
+return Math.min(f,t);
+}
+}
