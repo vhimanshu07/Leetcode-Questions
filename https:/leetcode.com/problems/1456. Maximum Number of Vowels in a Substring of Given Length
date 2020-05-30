@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int maxVowels(string s, int k) {
+        set<char>d;
+        d.insert('a');
+        d.insert('e');
+        d.insert('i');
+        d.insert('o');
+        d.insert('u');
+        
+        int ans=0;
+        for(int i=0;i<k;i++)
+        {
+            if(d.find(s[i])!=d.end())
+            {
+                ans++;
+            }
+        }
+       int fin=ans;
+        for(int i=k;i<s.length();i++)
+        {
+            int cur=ans;
+            if(d.find(s[i-k])!=d.end())
+            {
+                cur--;
+            }
+            if(d.find(s[i])!=d.end())
+            {
+                cur++;
+            }
+            ans=cur;
+            fin=max(fin,cur);
+        }
+        return fin;
+    }
+};
+
+// easy sliding winding solution in C++.
+//using set stl of c++.
