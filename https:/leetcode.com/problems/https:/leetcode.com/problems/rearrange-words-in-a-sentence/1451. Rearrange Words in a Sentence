@@ -1,0 +1,63 @@
+class Solution {
+    class pair
+    {
+        String s;
+        int ind;
+        pair(String d,int i)
+        {
+            s=d;
+            ind=i;
+        }
+    }
+    public String arrangeWords(String t) {
+        ArrayList<pair>a =new ArrayList<>();
+        int d=0;
+        int fl=0;
+        StringBuilder sb=new StringBuilder();
+        for(int i=0;i<t.length();i++)
+        {
+            if(t.charAt(i)==' ')
+            {
+                
+                a.add(new pair(sb.toString(),d));
+                d++;
+                fl=0;
+                sb=new StringBuilder();
+            }
+            else
+            {
+             
+                    sb.append(Character.toLowerCase(t.charAt(i)));
+            }
+        }
+          a.add(new pair(sb.toString(),d));
+                d++;
+        Collections.sort(a,new Comparator<pair>(){
+            public int compare(pair p1,pair p2)
+            {
+                if(p1.s.length()==p2.s.length())
+                {
+                    return p1.ind-p2.ind;
+                }
+                else
+                    return p1.s.length()-p2.s.length();
+            }
+        });
+        StringBuilder ans=new StringBuilder();
+        char ch=a.get(0).s.charAt(0);
+        ans.append(Character.toUpperCase(ch));
+        ans.append(a.get(0).s.substring(1)+" ");
+        for(int i=1;i<a.size();i++)
+        {
+            if(i==a.size()-1)
+                ans.append(a.get(i).s);
+            else
+            ans.append(a.get(i).s+" ");
+        }
+        return ans.toString();
+        
+    }
+}
+// Comparator use can be seen 
+// easily understandable
+// Java
