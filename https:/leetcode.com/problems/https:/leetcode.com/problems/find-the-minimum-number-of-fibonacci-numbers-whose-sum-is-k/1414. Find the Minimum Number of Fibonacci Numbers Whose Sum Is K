@@ -1,0 +1,38 @@
+class Solution {
+    public int findMinFibonacciNumbers(int k) {
+        int sum=0;
+        int a=0;
+        int b=1;
+        int c=a+b;
+        ArrayList<Integer>am=new ArrayList<>();
+        am.add(a);
+        am.add(b);
+        am.add(c);
+     
+        while(c<k)
+        {
+            a=b;
+            b=c;
+            c=a+b;
+            am.add(c);
+                
+        }
+         c=0;
+        for(int i=am.size()-1;i>=0;i--)
+        {
+            if(k-am.get(i)>0)
+            {
+                k-=am.get(i);
+                c++;
+            }
+            else if(k-am.get(i)==0)
+            {
+                k-=am.get(i);
+                c++;
+                break;
+            }
+        }
+        return c;
+        
+    }
+}
