@@ -1,0 +1,25 @@
+class Solution {
+    public int getDecimalValue(ListNode head) {
+
+        ListNode dum=head;
+   ListNode dum1=head;
+        int c=0;
+        while(dum!=null)
+        {
+           
+            dum=dum.next;
+            c++;
+        }
+       int pow=1<<(c-1);
+        int sum=0;
+                  
+        while(c-->0)
+        {
+            sum+=dum1.val*pow;
+            dum1=dum1.next;
+            pow=pow>>1;
+        }
+        return sum;
+        
+    }
+}
