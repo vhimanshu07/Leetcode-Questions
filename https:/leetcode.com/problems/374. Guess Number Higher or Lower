@@ -1,0 +1,22 @@
+public class Solution extends GuessGame {
+    public int guessNumber(int n) {
+        long s=1,e=n;
+        while(s<=e)
+        {
+        long mid=(s+e)/2;
+            if(guess((int)mid)==-1)
+            {
+                e=mid-1;
+            }
+            else if(guess((int)mid)==1)
+            {
+                s=mid+1;
+            }
+            else
+            {
+                return (int)mid;
+            }
+        }
+        return (int)s;
+    }
+}
