@@ -1,0 +1,114 @@
+//First solution is by using BFS (it took 10 ms), but it took a lot of time so used DSU(it took 2 ms) instead
+
+class Solution {
+List<List> gr;
+public int findCircleNum(int[][] M) {
+gr=new ArrayList<>();
+for(int i=0;i<M.length;i++)
+gr.add(new ArrayList<>());
+for(int i=0;i<M.length;i++)
+{
+for(int j=0;j<M[0].length;j++)
+{
+if(M[i][j]==1)
+{
+gr.get(i).add(j);
+}
+}
+}
+int c=0;
+
+    boolean[]vis=new boolean[M.length];
+    for(int i=0;i<M.length;i++)
+    {
+        if(vis[i])
+        {
+            continue;
+        }
+        Queue<Integer>q=new LinkedList<>();
+        q.add(i);
+        c++;
+        while(!q.isEmpty())
+        {
+            int rem=q.peek();
+            q.poll();
+            vis[rem]=true;
+            for(int d:gr.get(rem))
+            {
+                if(!vis[d])
+                {
+                    q.add(d);
+                }
+            }
+        }
+    }
+    return c;
+}
+}
+
+//This solution is done by using DSU
+class Solution {
+
+public int findCircleNum(int[][] M) {
+   dsu e=new dsu(M.length);
+    for(int i=0;i<M.length;i++)
+    {
+        for(int j=0;j<M[0].length;j++)
+        {
+            if(M[i][j]==1)
+            {
+               e.union(i,j);
+            }
+        }
+    }
+    int c=0;
+    for(int i=0;i<M.length;i++)
+    {
+        if(e.parent[i]==i)
+            c++;
+    }
+    
+   
+    return c;
+}
+class dsu
+{
+    int []parent,rank;
+    int n;
+    dsu(int n)
+    {
+        parent=new int[n];
+        rank=new int[n];
+        this.n=n;
+        for(int i=0;i<n;i++)
+            parent[i]=i;
+    }
+    public int find(int i)
+    {
+        if(parent[i]!=i)
+        {
+            parent[i]=find(parent[i]);
+        }
+        return parent[i];
+    }
+    public void union(int a,int b)
+    {
+        int ith=find(a),jth=find(b);
+        if(ith==jth)
+            return ;
+        if(rank[ith]<rank[jth])
+        {
+            parent[ith]=jth;
+        }
+        else if(rank[jth]<rank[ith])
+        {
+            parent[jth]=ith;
+        }
+        else
+        {
+            parent[ith]=jth;
+            rank[jth]=rank[jth]+1;
+        }
+    }
+}
+}
