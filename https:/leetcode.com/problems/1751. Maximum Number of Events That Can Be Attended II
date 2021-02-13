@@ -1,0 +1,38 @@
+// SIMPLE MEMOISATION
+
+
+
+class Solution {
+    public int maxValue(int[][] events, int k) {
+        Arrays.sort(events,new Comparator<int[]>()
+                    {
+                        public int compare(int[]a,int[]b)
+                        {
+                            if(a[0]==b[0])
+                            {
+                                return a[1]-b[1];
+                            }
+                            return a[0]-b[0];
+                        }
+                    });
+        HashMap<String,Integer>dp=new HashMap<>();
+        return ma(events,k,0,0,0,dp);
+        
+    }
+    public int ma(int[][]a,int k,int ind,int c,int pre,HashMap<String,Integer>dp)
+    {
+        if(c==k||ind>=a.length)
+        {
+            return 0;
+        }
+        String s="";
+        s+=c+" "+ind+" "+pre;
+        if(dp.containsKey(s))
+            return dp.get(s);
+        int ans=ma(a,k,ind+1,c,pre,dp);
+        if(pre<a[ind][0])
+            ans=Math.max(ans,ma(a,k,ind+1,c+1,a[ind][1],dp)+a[ind][2]);
+        dp.put(s,ans);
+        return ans;
+    }
+}
