@@ -1,0 +1,34 @@
+// Simple two pointer approach 
+
+
+
+class Solution {
+    public int minimumLength(String s) {
+        int i=0,j=s.length()-1;
+        int ans=s.length();
+        while(i<j)
+        {
+            char c=s.charAt(i);
+            char d=s.charAt(j);
+            if(c==d)
+            {
+            while(i<=j&&s.charAt(i)==c)
+            {
+                i++;
+                ans--;
+            }
+                 while(j>=i&&s.charAt(j)==d)
+            {
+               j--;
+                ans--;
+            }
+            }
+            else
+            {
+                break;
+            }
+        }
+        return ans;
+        
+    }
+}
