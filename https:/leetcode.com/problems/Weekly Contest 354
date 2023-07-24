@@ -46,3 +46,32 @@ public:
         return ans;
     }
 };
+
+
+Question 3:- https://leetcode.com/contest/weekly-contest-354/problems/minimum-index-of-a-valid-split/
+
+
+Solution:- 
+
+
+class Solution {
+public:
+    int minimumIndex(vector<int>& nums) {
+         int n = nums.size();
+        map<int, int> cnt;
+        for(auto &i: nums)  cnt[i]++;
+        int x = nums[0];
+        for(auto &[u, v]: cnt) {
+            if(v > cnt[x])
+                x = u;
+        }
+        int val = cnt[x], bf = 0;
+        if(val * 2 == n + 1)    return -1;
+        for(int i = 0 ; i < n - 1 ; i++) {
+            if(x == nums[i])    bf++;
+            if(bf * 2 > i + 1)  return i;
+        }
+        return -1;
+        
+    }
+};
