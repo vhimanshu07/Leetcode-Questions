@@ -1,0 +1,59 @@
+Question 1:- https://leetcode.com/contest/weekly-contest-352/problems/longest-even-odd-subarray-with-threshold/
+
+Solution:- 
+
+class Solution {
+    public int longestAlternatingSubarray(int[] a, int t) {
+        int ans=0;
+        int f=0;
+        int fi=0;
+        for(int i=0;i<a.length;i++)
+        {
+            if(a[i]%2==0&& a[i]<=t)
+            {
+                if(f==0)
+                ans=1;
+                else if(f==2)
+                    ans++;
+                else{
+                    ans=1;
+                }
+                f=1;
+            }
+            else if(a[i]%2!=0)
+            {
+                if(f==1&&a[i]<=t)
+                {
+                    if(i-1>=0)
+                    {
+                        if(a[i]!=a[i-1])
+                        {
+                        
+                            ans++;
+                            f=2;
+                        }
+                        else{
+                            f=0;
+                        }
+                        
+                        
+                    }
+                    else
+                    {
+                     f=0;   
+                    }
+                }
+                else
+                {
+                    f=0;          
+                }
+            }
+            else{
+                f=0;
+            }
+            fi=Math.max(ans,fi);
+            
+        }
+        return fi;
+    }
+}
