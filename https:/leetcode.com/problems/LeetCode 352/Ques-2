@@ -1,0 +1,72 @@
+Ques 2:- https://leetcode.com/contest/weekly-contest-352/problems/prime-pairs-with-target-sum/
+
+
+
+Solution 2:-
+
+ class Solution {
+    ArrayList<Integer>d;
+    Boolean isPrime(int e)
+    {
+        if(e==1)
+            return false;
+        int i=1;
+        while(i*i<=e)
+        {
+            if(e%i==0)
+                return false;
+            i++;
+        }
+        return true;
+    }
+    
+     void siev(int n)
+    {
+        boolean a[] = new boolean[n + 1];
+        for (int p =2;p * p <= n;p++) {
+            if (a[p] == false) {
+                for (int i = p*p;i <= n;i+=p)
+                    a[i] = true;
+            }
+        }
+        for (int i = 2;i <= n;i++) {
+            if (a[i] == false)
+             d.add(i);
+        }
+    }
+  
+
+    public List<List<Integer>> findPrimePairs(int n) {
+        d=new ArrayList<>();
+        siev(n+1);
+        List<List<Integer>>ans=new ArrayList<>();
+        for(int i=0;i<d.size();i++)
+        {
+            int val=d.get(i);
+            int l=i,h=d.size()-1;
+            while(l<=h)
+            {
+                int mid=l+(h-l)/2;
+                if(d.get(mid)+val==n)
+                {
+                    ArrayList<Integer>e=new ArrayList<>();
+                     e.add(val);
+                    e.add(d.get(mid));
+                    if(val<=d.get(mid))
+                    ans.add(e);
+                    break;
+                }
+                else if(d.get(mid)+val>n)
+                {
+                    h=mid-1;
+                }
+                else{
+                    l=mid+1;
+                }
+                
+            }
+        }
+        return ans;
+        
+    }
+}
