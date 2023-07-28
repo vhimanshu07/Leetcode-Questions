@@ -1,0 +1,14 @@
+Question:1- https://leetcode.com/contest/weekly-contest-350/problems/find-the-value-of-the-partition/
+
+Solution:- 
+class Solution {
+    public int findValueOfPartition(int[] a) {
+        Arrays.sort(a);
+        int l=a.length;
+        int dif=Integer.MAX_VALUE;
+        for(int i=0;i<a.length-1;i++){
+            dif=Math.min(dif,a[i+1]-a[i]);
+        }
+        return dif;
+    }
+}
