@@ -1,0 +1,13 @@
+Question1:-https://leetcode.com/contest/weekly-contest-349/problems/neither-minimum-nor-maximum/
+
+Soltuion:-
+
+class Solution {
+    public int findNonMinOrMax(int[] a) {
+        Arrays.sort(a);
+        if(a.length<=2)
+            return -1;
+        return a[1];
+        
+    }
+}
