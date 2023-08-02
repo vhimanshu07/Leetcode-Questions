@@ -1,0 +1,75 @@
+Question 2:- https://leetcode.com/contest/weekly-contest-349/problems/lexicographically-smallest-string-after-substring-operation/
+
+Soltuion:- 
+class Solution {
+    public String smallestString(String s) {
+        if(s.length()==1){
+            char d=s.charAt(0);
+            if(d=='a'){
+                return "z";
+            }
+            else
+            {
+                String y="";
+                y+=((char)(d-1));
+                return y;
+            }
+        }
+        else if(s.length()==2){
+            if(s.equals("aa"))
+                return "az";
+            else if(s.equals("ab")){
+                return "aa";
+            }
+            else if(s.equals("ba")){
+                return "aa";
+            }
+            else if(s.equals("bb")){
+                return "aa";
+            }
+            else{
+                String ans="";
+                for(int i=0;i<2;i++){
+                    char d=s.charAt(i);
+                    if(d=='a'){
+                        ans+=d;
+                    }
+                    else{
+                        ans+=((char)(d-1));
+                    }
+                }
+                return ans;
+            }
+        }
+        StringBuilder ans=new StringBuilder();
+        int pre=0;
+        for(int i=0;i<s.length();i++)
+        {
+            char d=s.charAt(i);
+            if(d=='a'){
+                if(i==0){
+                    ans.append(d);
+                }
+                else if(i!=0&&pre!=0)
+                {
+                    ans.append(s.substring(i));
+                    return ans.toString();
+                }
+                else if(i!=0&&pre==0){
+                    ans.append(d);
+                }
+                
+            }
+            else {
+                pre++;
+                ans.append((char)(d-1));
+            }
+        }
+        if(pre==0){
+            char d=s.charAt(s.length()-1);
+            ans.setCharAt(s.length()-1,'z');
+        }
+        return ans.toString();
+        
+    }
+}
