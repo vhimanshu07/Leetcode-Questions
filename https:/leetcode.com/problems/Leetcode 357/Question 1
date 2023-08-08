@@ -1,0 +1,20 @@
+Question 1 :- https://leetcode.com/contest/weekly-contest-357/problems/faulty-keyboard/
+
+Solution-  
+class Solution {
+    public String finalString(String s) {
+        StringBuilder sb=new StringBuilder();
+        StringBuilder ans=new StringBuilder();
+        for(int i=0;i<s.length();i++)
+        {
+            char d=s.charAt(i);
+             ans.append(d);
+            if(d=='i'){
+                StringBuilder ot=new StringBuilder(ans.toString().substring (0,ans.length()-1));
+                ot.reverse();
+                ans=ot;
+            }
+        }
+        return ans.toString();
+    }
+}
