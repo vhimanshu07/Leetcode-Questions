@@ -1,0 +1,37 @@
+Question 1:- https://leetcode.com/contest/weekly-contest-341/problems/row-with-maximum-ones/
+
+Solution:-
+
+class Solution {
+    class pair{
+        int val,size;
+        pair(int a,int b)
+        {
+            val=a;
+            size=b;
+        }
+    }
+    public int[] rowAndMaximumOnes(int[][] a) {
+        ArrayList<pair>e=new ArrayList<>();
+        for(int i=0;i<a.length;i++)
+        {
+            int c=0;
+            for(int j=0;j<a[0].length;j++)
+            {
+                if(a[i][j]==1)
+                    c++;
+            }
+            e.add(new pair(c,i));
+        }
+         Collections.sort(e,new Comparator<pair>(){
+            public int compare(pair a,pair b)
+            {
+                if(a.val==b.val)
+                    return a.size-b.size;
+                return b.val-a.val;
+            }
+        });
+        return new int []{e.get(0).size,e.get(0).val};
+        
+    }
+}
