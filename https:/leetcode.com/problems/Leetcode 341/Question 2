@@ -1,0 +1,40 @@
+Question 2:-  https://leetcode.com/contest/weekly-contest-341/problems/find-the-maximum-divisibility-score/
+
+Solution:-
+
+class Solution {
+    class pair{
+        int val,size;
+        pair(int a,int b)
+        {
+            val=a;
+            size=b;
+        }
+    }
+    public int maxDivScore(int[] a, int[] d) {
+        int ans=0;
+        int sbse=Integer.MAX_VALUE;
+        ArrayList<pair>e=new ArrayList<>();
+        
+        for(int i=0;i<d.length;i++)
+        {
+            int t=0;
+            for(int ec:a)
+            {
+                if(ec%d[i]==0)
+                    t++;
+            }
+            e.add(new pair(d[i],t));
+          
+        }
+        Collections.sort(e,new Comparator<pair>(){
+            public int compare(pair a,pair b)
+            {
+                if(a.size==b.size)
+                    return a.val-b.val;
+                return b.size-a.size;
+            }
+        });
+        return e.get(0).val;
+    }
+}
