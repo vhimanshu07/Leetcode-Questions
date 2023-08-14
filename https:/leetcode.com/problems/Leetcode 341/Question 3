@@ -1,0 +1,26 @@
+Question 3:- https://leetcode.com/contest/weekly-contest-341/problems/minimum-additions-to-make-valid-string/
+
+Solution:-  
+class Solution {
+public:
+    int addMinimum(string word) {
+        
+         char now='a';
+        int ans=0;
+        for(auto it:word){
+            while(now!=it){
+                ans++;
+                now=now+1;
+                if(now=='d')now='a';
+            }
+            now=now+1;
+            if(now=='d')now='a';
+        }
+        while(now!='a'){
+            ans++;
+            now=now+1;
+            if(now=='d')now='a';
+        }
+        return ans;
+    }
+};
