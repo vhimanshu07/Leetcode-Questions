@@ -1,0 +1,34 @@
+Question 1:- https://leetcode.com/contest/weekly-contest-358/problems/max-pair-sum-in-an-array/
+
+Solution -
+class Solution {
+    public int maxi(int n){
+        int m=0;
+        while(n>0){
+            m=Math.max(n%10,m);
+            n/=10;
+        }
+        return m;
+    }
+    public int maxSum(int[] a) {
+        int max[]=new int[a.length];
+        int b[]=new int[a.length];
+        for(int i=0;i<a.length;i++)
+        {
+            b[i]=a[i];
+            max[i]=maxi(a[i]);
+        }
+        int sum=-1;
+        for(int i=0;i<a.length;i++)
+        {
+            for(int j=i+1;j<a.length;j++){
+                if(max[i]==max[j]){
+                    sum=Math.max(sum,(b[i]+b[j]));
+                }
+            }
+        }
+        return sum;
+        
+    }
+}
+
