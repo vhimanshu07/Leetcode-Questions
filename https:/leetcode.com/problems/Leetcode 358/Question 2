@@ -1,0 +1,46 @@
+Question 2:- https://leetcode.com/contest/weekly-contest-358/problems/double-a-number-represented-as-a-linked-list/
+
+Solution
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode doubleIt(ListNode head) {
+        ArrayList<Integer>s=new ArrayList<>();
+        while(head!=null){
+            s.add(head.val);
+            head=head.next;
+        }
+        int car=0;
+        int sum=0;
+        for(int i=s.size()-1;i>=0;i--){
+            int val=s.get(i);
+            int next=2*val;
+            int rem=next%10;
+            int div=(car+next)/10;
+            s.set(i,(rem+car)%10);
+            car=div;
+            
+        }
+        if(car!=0){
+            s.add(0,car);
+        }
+        ListNode dum=new ListNode(0);
+        ListNode e=dum;
+        for(int i=0;i<s.size();i++)
+        {
+            e.next=new ListNode(s.get(i));
+            e=e.next;
+        }
+        return dum.next;
+    }
+}
