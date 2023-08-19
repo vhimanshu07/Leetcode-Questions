@@ -1,0 +1,48 @@
+Question 1:- https://leetcode.com/contest/weekly-contest-340/problems/prime-in-diagonal/
+
+Solution :-
+
+class Solution {
+    public boolean isPrime(int n)
+    {
+        if(n==1)
+            return false;
+        for(int i=2;i*i<=n;i++)
+        {
+            if(n%i==0)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    public int diagonalPrime(int[][] a) {
+        // right diagonal
+        int i=0;
+        int ans=0;
+        
+        for(int j=0;j<a[0].length;j++)
+        {
+            if(i>=a.length)
+                continue;
+            if(isPrime(a[i][j]))
+            {
+                ans=Math.max(a[i][j],ans);
+            }
+            i++;
+        }
+        // left
+        i=0;
+        for(int j=a[0].length-1;j>=0;j--)
+        {
+             if(i>=a.length)
+                continue;
+            if(isPrime(a[i][j]))
+            {
+                ans=Math.max(a[i][j],ans);
+            }
+            i++;
+        }
+        return ans;
+    }
+}
