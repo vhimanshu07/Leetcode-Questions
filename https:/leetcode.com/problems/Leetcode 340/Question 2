@@ -1,0 +1,38 @@
+Question 2:- https://leetcode.com/contest/weekly-contest-340/problems/sum-of-distances/
+
+Solution :-
+class Solution {
+public:
+    typedef long long ll;
+    vector<long long> distance(vector<int>& nums) {
+        map<ll,vector<ll>> mp;
+        vector<ll> ans(nums.size(),0);
+        for(int i=0;i<nums.size();i++)
+            mp[nums[i]].push_back(i);
+        for(auto it:mp)
+        {
+            ll n=it.second.size();
+            vector<ll> pref(n,0);
+            vector<ll> suff(n,0);
+            pref[0]=mp[it.first][0];
+            suff[n-1]=mp[it.first][n-1];
+            for(int i=1;i<n;i++)
+                pref[i]=pref[i-1]+mp[it.first][i];
+            for(int i=n-2;i>=0;i--)
+                suff[i]=suff[i+1]+mp[it.first][i];
+            ll l=0,r=n-1;
+            for(int i=0;i<n;i++)
+            {
+                ll sum=0;
+                if(i<n-1)
+                sum+=suff[i+1]-r*mp[it.first][i];
+                if(i>0)
+                sum+=l*mp[it.first][i]-pref[i-1];
+                ans[mp[it.first][i]]=sum;
+                l++;
+                r--;
+            }
+            }
+        return ans;
+    }
+};
