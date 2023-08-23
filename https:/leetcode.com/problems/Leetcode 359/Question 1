@@ -1,0 +1,14 @@
+Question 1:- https://leetcode.com/contest/weekly-contest-359/problems/check-if-a-string-is-an-acronym-of-words/
+
+Solution:-
+class Solution {
+    public boolean isAcronym(List<String> words, String s) {
+        String as="";
+        for(String c:words)
+        {
+            as+=c.charAt(0);
+        }
+        return (as.equals(s));
+        
+    }
+}
