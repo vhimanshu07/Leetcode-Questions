@@ -1,0 +1,20 @@
+Question 2:- https://leetcode.com/contest/weekly-contest-359/problems/determine-the-minimum-sum-of-a-k-avoiding-array/
+
+Solution:- 
+class Solution {
+public:
+    int minimumSum(int n, int k) {
+        int ans=0;
+        set<int> s;
+        int now=1;
+        for(int i=1;i<=n;i++){
+            while(s.find(now)!=s.end()){
+                now++;
+            }
+            ans+=now;
+            s.insert(now);
+            s.insert(k-now);
+        }
+        return ans;
+    }
+};
