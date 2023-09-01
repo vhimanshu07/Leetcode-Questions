@@ -1,0 +1,19 @@
+Question 2 :- https://leetcode.com/contest/weekly-contest-334/problems/find-the-divisibility-array-of-a-string/
+
+Solution:- 
+import java.math.*;
+class Solution {
+    public int[] divisibilityArray(String w, int m) {
+        int []as=new int[w.length()];
+        long mul=1;
+        long val=0;
+        for(int i=0;i<w.length();i++)
+        {
+            int d=(int)(w.charAt(i)-'0');
+            val =(d+10*val)%m;
+            if(val==0)
+                as[i]=1;
+        }
+        return as;
+    }
+}
