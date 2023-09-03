@@ -1,0 +1,42 @@
+Question  1: -https://leetcode.com/contest/weekly-contest-361/problems/count-symmetric-integers/
+
+Solution :-
+
+class Solution {
+    public boolean sum(int num)
+    {
+        
+        String s="";
+        s+=num;
+        if(s.length()%2!=0)
+        {
+            return false;
+        }
+        int half=s.length()/2;
+       
+        int le=0,re=0;
+        for(int i=0;i<half;i++)
+        {
+            le+=(s.charAt(i)-'0');
+        }
+         for(int i=half;i<s.length();i++)
+        {
+            re+=(s.charAt(i)-'0');
+        }
+        
+        return le==re;
+        
+        
+    }
+    public int countSymmetricIntegers(int l, int hi) {
+        int count=0;
+        for(int i=l;i<=hi;i++)
+        {
+            count+=sum(i)==true?1:0;
+            
+        }
+        return count;
+        
+    }
+}
+ 
