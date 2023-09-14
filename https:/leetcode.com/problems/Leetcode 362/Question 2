@@ -1,0 +1,110 @@
+Question 2:- https://leetcode.com/contest/weekly-contest-362/problems/determine-if-a-cell-is-reachable-at-a-given-time/
+
+Solution :-
+
+
+class Solution {
+    
+    public boolean isReachableAtTime(int sx, int sy, int fx, int fy, int t) {
+        int val =sy;
+        sy=sx;
+        sx=val;
+        
+        val =fy;
+        fy=fx;
+        fx=val;
+        
+        
+
+        if(sx==fx&&sy==fy)
+        {
+            if(t==1)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        }
+        if(sx<fx)
+        {
+            if(sy<fy)
+            {
+                // right diagonal
+                int dif= Math.min(fy-sy,fx-sx);
+                int tot=dif;
+                if(fy-sy<fx-sx)
+                {
+                    tot+=(fx-sx)-dif;
+                    return tot<=t;
+                }
+                else{
+                    
+                     tot+=(fy-sy)-dif;
+                    return tot<=t;
+                }
+            }
+            else
+            {
+                // upper diagonal
+                int dif= Math.min(sy-fy,fx-sx);
+                int tot=dif;
+                if(sy-fy<fx-sx)
+                {
+                    tot+=(fx-sx)-dif;
+                    return tot<=t;
+                }
+                else{
+                    
+                     tot+=(sy-fy)-dif;
+                    return tot<=t;
+                }
+
+            }
+            
+        }
+        else
+        {
+            if(sy<fy)
+            {
+                 // upper right diagonal
+                int dif= Math.min(fy-sy,sx-fx);
+                int tot=dif;
+                if(fy-sy<sx-fx)
+                {
+                    tot+=(sx-fx)-dif;
+                    return tot<=t;
+                }
+                else{
+                    
+                     tot+=(fy-sy)-dif;
+                    return tot<=t;
+                }
+                
+            }
+            else
+            {
+                int dif= Math.min(sy-fy,sx-fx);
+                int tot=dif;
+                if(sy-fy<sx-fx)
+                {
+                    tot+=(sx-fx)-dif;
+                    return tot<=t;
+                }
+                else{
+                    
+                     tot+=(sy-fy)-dif;
+                    return tot<=t;
+                }
+                
+
+            }
+
+        }
+       // return false;
+        
+        
+    }
+}
