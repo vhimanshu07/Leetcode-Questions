@@ -1,0 +1,40 @@
+Question 2:- https://leetcode.com/contest/weekly-contest-323/problems/longest-square-streak-in-an-array/
+
+Solution:- 
+
+class Solution {
+    public int longestSquareStreak(int[] nums) {
+        Arrays.sort(nums);
+        HashMap<Long,Integer>m=new HashMap<>();
+        for(int e:nums)
+        {
+            m.put((long)e,1);
+        }
+        int ma=nums[nums.length-1];
+        int ans=-1;
+        for(int i=0;i<nums.length;i++)
+        {
+            long val=nums[i];
+            long next=(long)Math.pow(val,2);
+            if(next>ma||!m.containsKey(next))
+            {
+                continue;
+            }
+            val =next;
+            int f=2;
+            next=(long)Math.pow(val,2);
+              val =next;
+            while(m.containsKey(next)&&next<=ma)
+            { 
+               // System.out.print(next+" ");
+                next=(long)Math.pow(val,2);
+                //System.out.print(next+" ");
+                val=next;
+                f++;
+            }
+            ans=Math.max(ans,f);
+        }
+        return ans;
+        
+    }
+}
