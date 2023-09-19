@@ -1,0 +1,37 @@
+Question 1:- https://leetcode.com/contest/weekly-contest-363/problems/sum-of-values-at-indices-with-k-set-bits/
+
+Solution :- 
+class Solution {
+    public boolean totat(int ind,int k)
+    {
+        int val=ind;
+        if(ind==0)
+        {
+            return 0==k;
+        }
+        int p=1,f=0;
+        while(val>0)
+        {
+            int cur=val&1;
+            if(cur==1)
+            {
+                f++;
+            }
+            val=val>>1;
+            p=p<<1;
+        }
+        return f==k;
+    }
+    public int sumIndicesWithKSetBits(List<Integer> a, int k) {
+        int sum=0;
+        for(int i=0;i<a.size();i++)
+        {
+            if(totat(i,k))
+            {
+                sum+=a.get(i);
+            }
+            
+        }
+        return sum;
+    }
+}
