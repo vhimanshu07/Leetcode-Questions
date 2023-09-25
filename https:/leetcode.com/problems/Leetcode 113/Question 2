@@ -1,0 +1,22 @@
+Question 2:- https://leetcode.com/contest/biweekly-contest-113/problems/minimum-array-length-after-pair-removals/
+
+Solution :-
+
+class Solution {
+    public int minLengthAfterRemovals(List<Integer> a) {
+        int l=0,h=(a.size()+1)/2;
+        int c=a.size();
+        while(l<a.size()/2&&h<=a.size()-1)
+        {
+            if(a.get(l)<a.get(h))
+            {
+               c-=2;
+            }
+            l++;
+            h++;
+        }
+
+        return c;
+        
+    }
+}
