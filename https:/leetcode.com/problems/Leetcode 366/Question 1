@@ -1,0 +1,22 @@
+Question 1:- https://leetcode.com/contest/weekly-contest-366/problems/divisible-and-non-divisible-sums-difference/
+
+Solution :- 
+class Solution {
+public:
+    int differenceOfSums(int n, int m) {
+        long long tot=0,tt=0;
+        for(int i=1;i<=n;i++)
+        {
+            if(i%m)
+            {
+                tot+=i;
+            } 
+            else
+            {
+                tt+=i;
+            }
+        }
+        return (int)tot-tt;
+        
+    }
+};
