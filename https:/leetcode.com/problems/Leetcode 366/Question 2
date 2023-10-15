@@ -1,0 +1,31 @@
+Question 2:- https://leetcode.com/contest/weekly-contest-366/problems/minimum-processing-time/
+
+
+Solution:-
+
+class Solution {
+public:
+    int minProcessingTime(vector<int>& p, vector<int>& t) {
+        sort(t.begin(),t.end());
+        sort(p.begin(),p.end());
+        int to=0;
+        int f=0;
+        for(int i=p.size()-1;i>=0;i--)
+        {
+            int ans=0;
+            int c=0;
+        
+            for(int j=4*f;c<4&&j<t.size();j++)
+            {
+               // cout<<j<<" "<<t[j]<<"   p ->"<<p[i]<<"::";
+                ans=max(p[i]+t[j],ans);
+                c++;
+            }
+            f++;
+          //  cout<<"out. ";
+            to=max(ans,to);
+           // cout<<to<<" <-tot ";
+        }
+        return to;
+    }
+};
