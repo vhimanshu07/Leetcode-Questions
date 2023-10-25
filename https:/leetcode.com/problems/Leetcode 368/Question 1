@@ -1,0 +1,26 @@
+Question 1:- https://leetcode.com/contest/weekly-contest-368/problems/minimum-sum-of-mountain-triplets-i/
+
+Solution :-
+
+class Solution {
+    public int minimumSum(int[] a) {
+        int ans=Integer.MAX_VALUE;
+        for(int i=0;i<a.length;i++)
+        {
+            for(int j=i+1;j<a.length;j++)
+            {
+                for(int k=j+1;k<a.length;k++)
+                {
+                    if(a[i]<a[j]&&a[j]>a[k])
+                    {
+                        int e=a[i]+a[j]+a[k];
+                        ans=Math.min(ans,e);
+                    }
+                }
+            }
+        }
+        if(ans==Integer.MAX_VALUE)
+            ans=-1;
+        return ans;
+    }
+}
