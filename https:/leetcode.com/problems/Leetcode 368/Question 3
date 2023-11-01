@@ -1,0 +1,65 @@
+Question 3:- https://leetcode.com/contest/weekly-contest-368/problems/minimum-number-of-groups-to-create-a-valid-assignment/
+
+Solution: -
+
+class Solution {
+public:
+      int check(int x, vector<int> & v){
+        int n =  v.size();
+        int a = x, b = x + 1;
+        int res = 0;
+        for(int i = 0; i < n; i++){
+            int w = v[i];
+            int cur = INT_MAX;
+            if(w % b == 0)
+                cur = min(cur,  w/b);
+            if(w % a == 0)
+                cur = min(cur, w/a);
+                
+            // if(w % a != 0 && w % b != 0){
+            if(w % b != 0){
+                int y = ceil((1.0 * w)/b);
+                if(w/y != a){
+                    return -1;
+                }
+                else{
+                    cur = min(cur, y);
+                }
+            }
+
+
+            res += cur;
+        }
+
+        return res;
+    }
+
+    int minGroupsForValidAssignment(vector<int>& nums) {
+        int n = nums.size();
+
+        unordered_map<int, int> um;
+
+        for(int i = 0; i < n; i++)
+            um[nums[i]]++;
+        vector<int> v;
+        int high = 0;
+        for(auto &x : um){
+            v.push_back(x.second);
+            high += x.second;
+        }
+
+        sort(v.begin(), v.end());
+
+        int ans = high;
+        
+
+        for(int i = 1; i <= v[0]; i++){
+            int cur = check(i, v);
+            if(cur != -1){
+                ans = min(ans, cur);
+            }
+        }
+
+        return ans;
+    }
+};
