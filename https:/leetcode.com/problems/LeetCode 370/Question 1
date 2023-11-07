@@ -1,0 +1,34 @@
+Question 1 :- https://leetcode.com/contest/weekly-contest-370/problems/find-champion-i/
+
+
+Solution :- 
+class Solution {
+    public int findChampion(int[][] a) {
+        int max=0;
+        ArrayList<ArrayList<Integer>>gr=new ArrayList<>();
+        for(int i=0;i<a.length;i++)
+        {
+            gr.add(new ArrayList<>());
+        }
+        HashSet<Integer>vis=new HashSet<>();
+        for(int i=0;i<a.length;i++)
+        {
+            for(int j=0;j<a[0].length;j++)
+            {
+                if(a[i][j]==1)
+                {
+                  gr.get(i).add(j);
+                }
+            }
+        }
+        int ans=0;
+        for(int i=0;i<a.length;i++)
+        {
+            if(gr.get(i).size()>max){
+                max=gr.get(i).size();
+                ans=i;
+            }
+        }
+        return ans;
+    }
+}
