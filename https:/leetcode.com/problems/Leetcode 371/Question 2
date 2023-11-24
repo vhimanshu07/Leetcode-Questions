@@ -1,0 +1,44 @@
+Question 2:- https://leetcode.com/contest/weekly-contest-371/problems/high-access-employees/
+
+Solution:- 
+class Solution {
+    public int makeInt(String s){
+        int fl=-1;
+        int cur=0;
+        int mul=1000;
+        for(int i=0;i<s.length();i++)
+        {
+            char d=s.charAt(i);
+            int val =(int)(d-'0');
+            cur=mul*val+cur;
+            mul/=10;
+        }
+        return cur;
+    }
+    public List<String> findHighAccessEmployees(List<List<String>> access_times) {
+         Map<String, List<Integer>> map = new HashMap<>();
+        for(List<String> a : access_times){
+            if(!map.containsKey(a.get(0))){
+                map.put(a.get(0), new ArrayList<>());
+            }
+            char[] s = a.get(1).toCharArray();
+            int h = (s[0]-'0')*10 + s[1]-'0';
+            int m = (s[2]-'0')*10 + s[3]-'0';
+            map.get(a.get(0)).add(h*60+m);
+        }
+        List<String> ret = new ArrayList<>();
+        outer:
+        for(String key : map.keySet()){
+            List<Integer> val = map.get(key);
+            Collections.sort(val);
+            for(int i = 0;i < val.size()-2;i++){
+                if(val.get(i+2) - val.get(i) <= 59){
+                    ret.add(key);
+                    continue outer;
+                }
+            }
+        }
+        return ret;
+        
+    }
+}
