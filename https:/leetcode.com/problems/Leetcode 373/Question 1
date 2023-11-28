@@ -1,0 +1,56 @@
+Question 1:- https://leetcode.com/contest/weekly-contest-373/problems/matrix-similarity-after-cyclic-shifts/
+
+Solution :- 
+class Solution {
+    
+    public boolean areSimilar(int[][] a, int k) {
+        int [][]temp=new int[a.length][a[0].length];
+        for(int i=0;i<a.length;i++)
+        {
+            for(int j=0;j<a[0].length;j++)
+            temp[i][j]=a[i][j];
+        }
+        for(int c=1;c<=k;c++){
+                for(int rows=0;rows<a.length;rows++)
+                {
+                    if(rows%2==0)
+                    {
+                        int ee=a[rows][0];
+                        for(int j=0;j<a[0].length;j++)
+                        {
+                            if(j==a[0].length-1)
+                            {
+                               a[rows][j]=ee;
+                            }
+                            else{
+                             a[rows][j]=a[rows][j+1]; 
+                            }
+                        }
+                    }
+                    else{
+                         int ee=a[rows][a[0].length-1];
+                        for(int j=a[0].length-1;j>=0;j--)
+                        {     
+                            if(j==0)
+                            {
+                               a[rows][j]=ee;
+                            }
+                            else{
+                             a[rows][j]=a[rows][j-1];
+                            }
+                        }
+                        
+                    }
+                }
+        }
+        for(int i=0;i<a.length;i++)
+        {
+            for(int j=0;j<a[0].length;j++)
+            {
+                if(a[i][j]!=temp[i][j])
+                    return false;
+            }  
+        }
+        return true;
+    }
+}
