@@ -1,0 +1,35 @@
+Question 2:- https://leetcode.com/contest/weekly-contest-373/problems/count-beautiful-substrings-i/
+
+Solution :- 
+
+class Solution {
+ 
+    public int beautifulSubstrings(String s, int k) {
+
+             int c=0;
+         for (int i = 0; i < s.length(); i++) {
+         String subStr="";
+             int co=0,vo=0;
+         for (int j = i; j < s.length(); j++) {
+            subStr += s.charAt(j);
+             char d=s.charAt(j);
+              if(d =='a'||d =='e'||d =='i'||d =='o'||d =='u')
+            {
+                vo++;
+            }
+            else{
+                co++;
+            }
+             if(subStr.length()>0&&((vo*co)%k==0)&&vo==co)
+              {
+                  c++;
+              }
+            // System.out.print(subStr+"  ");
+         }
+              
+             
+        }
+        return c;
+        
+    }
+}
