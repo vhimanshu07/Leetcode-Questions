@@ -1,0 +1,26 @@
+Question 1:- https://leetcode.com/contest/biweekly-contest-118/problems/find-words-containing-character/
+
+Solution :-
+class Solution {
+    public List<Integer> findWordsContaining(String[]w, char x) {
+        List<Integer>ans=new ArrayList<>();
+        for(int i=0;i<w.length;i++)
+        {
+            String s=w[i];
+            boolean fl=false;
+            for(char e:s.toCharArray()){
+                if(e==x)
+                {
+                    fl=true;
+                    break;
+                }
+            }
+            if(fl==true)
+            {
+                ans.add(i);
+            }
+        }
+        return ans;
+    }
+    
+}
