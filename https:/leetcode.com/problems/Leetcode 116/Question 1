@@ -1,0 +1,19 @@
+Question 1:- https://leetcode.com/contest/biweekly-contest-116/problems/subarrays-distinct-element-sum-of-squares-i/
+
+Solution:- 
+class Solution {
+public:
+    int sumCounts(vector<int>& a) {
+         int i, j, r, res = 0, n = a.size();
+        for (i = 0; i < n; ++i){
+            unordered_set<int> S;
+            for (j = i; j < n; ++j){
+                S.insert(a[j]);
+                r = S.size();
+                res += r * r;
+            }
+        }
+        
+        return res;
+    }
+};
