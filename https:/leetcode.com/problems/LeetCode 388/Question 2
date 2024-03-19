@@ -1,0 +1,18 @@
+Question 2-https://leetcode.com/contest/weekly-contest-388/problems/maximize-happiness-of-selected-children/
+
+Solution :-
+class Solution {
+    public long maximumHappinessSum(int[] h, int k) {
+        Arrays.sort(h);
+        long sum=0;
+        long f=0;
+        for(int i=h.length-1;k-->0&&i>=0;i--){
+            if(h[i]-f<0)
+                continue;
+            sum+=h[i]-f;
+            f++;
+        }
+        return sum;
+    }
+}
+
