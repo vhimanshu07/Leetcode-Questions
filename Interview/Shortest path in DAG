@@ -1,0 +1,55 @@
+class pair{
+        int node,wt;
+        pair(int node,int wt){
+            this.node=node;
+            this.wt=wt;
+        }
+    }
+
+	public int[] shortestPath(int N,int M, int[][] edges) {
+		//Code here
+		ArrayList<ArrayList<pair>>gr=new ArrayList<>();
+		for(int i=0;i<N;i++){
+		    gr.add(new ArrayList<pair>());
+		}
+		int indegree[]=new int [N];
+		for(int i=0;i<edges.length;i++){
+		    int a=edges[i][0];
+		    int b=edges[i][1];
+		    gr.get(b).add(new pair(a,edges[i][2]));
+		    indegree[b]++;
+		}
+	    Queue<Integer>q=new LinkedList<>();
+	    for(int i=0;i<N;i++){
+	        if(indegree[i]==0){
+	            q.offer(i);
+	        }
+	    }
+	    int []dist=new int [N];
+	    Arrays.fill(dist,Integer.MAX_VALUE);
+		dist[0]=0;
+		while(!q.isEmpty()){
+		    int rem=q.poll();
+		    for(pair nei:gr.get(rem)){
+		      
+		      indegree[nei.node]--;
+		      if(indegree[nei.node]==0){
+		          q.offer(nei.node);
+		      }
+		      if(nei.wt+dist[rem]<dist[nei.node]){
+		          dist[nei.node]=nei.wt+dist[rem];
+		      }
+		    }
+		}
+		for(int i=0;i<N;i++){
+		    if(dist[i]==Integer.MAX_VALUE)
+		    dist[i]=-1;
+		}
+		return dist;
+		
+	}
+
+
+https://www.geeksforgeeks.org/problems/shortest-path-in-undirected-graph/0
+
+
