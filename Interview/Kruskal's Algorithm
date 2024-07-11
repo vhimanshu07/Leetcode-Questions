@@ -1,0 +1,70 @@
+ static class DSU
+   {
+       int par[],rank[];
+       DSU(int n){
+           par=new int[n];
+           rank=new int[n];
+           for(int i=0;i<n;i++){
+               par[i]=i;
+           }
+       }
+       public int findParent(int u){
+           if(u!=par[u]){
+               par[u]=findParent(par[u]);
+           }
+           return par[u];
+       }
+       public boolean union(int u,int v){
+           int uth=findParent(u);
+           int vth=findParent(v);
+           if(uth==vth)
+           return false ;
+           if(rank[uth]<rank[vth]){
+               rank[vth]+=1;
+               par[uth]=vth;
+           }
+           else{
+               rank[uth]+=1;
+               par[vth]=uth;
+           }
+           return true;
+       }
+   }
+   static class pair{
+       int u,v,wt;
+       pair(int u,int v,int wt){
+           this.u=u;
+           this.v=v;
+           this.wt=wt;
+       }
+   }
+    static int spanningTree(int V, int E, List<List<int[]>> adj) {
+        // Code Here.
+        DSU d=new DSU(V);
+        int ans=0;
+        ArrayList<pair>gr=new ArrayList<>();
+        for(int i=0;i<adj.size();i++){
+           for(int j=0;j<adj.get(i).size();j++){
+              int v=adj.get(i).get(j)[0];
+            int wt=adj.get(i).get(j)[1];
+            gr.add(new pair(i,v,wt));
+           }
+           
+        }
+        Collections.sort(gr,new Comparator<pair>(){
+            public int compare(pair p,pair q){
+                return p.wt-q.wt;
+            }
+        });
+        for(pair cur:gr){
+        
+                if(d.union(cur.u,cur.v)){
+                    ans+=cur.wt;
+                }
+            
+        }
+        return ans;
+        
+        
+        
+    }
