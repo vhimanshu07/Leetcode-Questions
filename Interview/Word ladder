@@ -1,0 +1,49 @@
+class Solution {
+    class pair{
+        String word;
+        int t;
+        pair(String e,int er)
+        {
+            word=e;
+            t=er;
+        }
+    }
+    public int ladderLength(String s, String e, List<String> w) {
+        Set<String>vis=new HashSet<>(w);
+        Queue<pair>q=new LinkedList<>();
+        q.offer(new pair(s,1));
+        while(!q.isEmpty())
+        {
+            pair rem=q.poll();
+            String st=rem.word;
+            if(st.equals(e))
+            {
+                return rem.t;
+            }
+            char []ar=st.toCharArray();
+            for(int i=0;i<ar.length;i++)
+            {
+                
+                for(char j='a';j<='z';j++)
+                {
+                    char temp=ar[i];
+                    if(ar[i]!=j)
+                    {
+                        ar[i]=j;
+                    }
+                    String nowword=new String(ar);
+                    if(vis.contains(nowword))
+                    {
+                        vis.remove(nowword);
+                        q.offer( new pair(nowword,rem.t+1));
+                    }
+                      ar[i]=temp;
+                }
+              
+            }
+        }
+        return 0;
+    }
+}
+
+https://leetcode.com/problems/word-ladder/
