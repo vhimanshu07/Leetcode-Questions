@@ -1,0 +1,82 @@
+class Solution {
+  static List<List<String>> accountsMerge(List<List<String>> a) {
+    // code here
+    DSU d=new DSU(a.size());
+    HashMap<String ,Integer>mapMailNode=new HashMap<>();
+    
+     ArrayList<ArrayList<String>> mergedMail=new ArrayList<>();
+    for(int i=0;i<a.size();i++){
+        mergedMail.add(new ArrayList<>());
+        for(int j=1;j<a.get(i).size();j++){
+            String y=a.get(i).get(j);
+            if(mapMailNode.containsKey(y)){
+                /**
+                 * 
+                 *  If that string is already present in map, it means
+                 * it should be similar to any other node (so make union of it)
+                 * 
+                 * */
+                d.union(i,mapMailNode.get(y));
+            }
+            else{
+                mapMailNode.put(y,i);
+            }
+        }
+    }
+  
+  
+    for(String mail:mapMailNode.keySet()){
+        int parentNode= d.find(mapMailNode.get(mail));
+        mergedMail.get(parentNode).add(mail);
+    }
+    List<List<String>>ans=new ArrayList<>();
+    for(int i=0;i<a.size();i++){
+        if(mergedMail.get(i).size()>0){
+            Collections.sort(mergedMail.get(i));
+            List<String >cur=new ArrayList<>();
+            cur.add(a.get(i).get(0));
+            for(String e:mergedMail.get(i)){
+                cur.add(e);
+            }
+            ans.add(cur);
+        }
+        
+    }
+    return ans;
+    
+
+  }
+  static class DSU{
+      static int []par,rank;
+      
+      public DSU(int n){
+          par=new int [n];
+          rank=new int[n];
+          for(int i=0;i<n;i++)
+          par[i]=i;
+      }
+      static int find(int i){
+          if(i!=par[i]){
+              par[i]=find(par[i]);
+          }
+          return par[i];
+      }
+      static void union(int u,int v){
+          int uth=find(u);
+          int vth=find(v);
+          if(uth==vth)
+          return;
+          if(rank[uth]<rank[vth]){
+              par[uth]=vth;
+              rank[vth]+=1;
+          }
+          else{
+              par[vth]=uth;
+              rank[uth]+=1;
+          }
+      }
+  }
+}
+
+
+https://www.geeksforgeeks.org/problems/account-merge/1
