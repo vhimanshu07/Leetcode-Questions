@@ -1,0 +1,65 @@
+class Solution {
+    static class pair{
+        int v, wt;
+        pair(int v,int wt){
+            this.v=v;
+            this.wt=wt;
+        }
+    }
+
+    static int countPaths(int n, List<List<Integer>> roads) {
+        // Your code here
+        ArrayList<ArrayList<pair>>gr=new ArrayList<>();
+        int mod=(int)(1e9+7);
+        for(int i=0;i<n;i++){
+            gr.add(new ArrayList<>());
+        }
+        for(int i=0;i<roads.size();i++){
+            List<Integer>cur=roads.get(i);
+            gr.get(cur.get(0)).add(new pair(cur.get(1),cur.get(2)));
+            gr.get(cur.get(1)).add(new pair(cur.get(0),cur.get(2)));
+        }
+        
+        int cost[]=new int[n+1];
+        int ways[]=new int[n+1];
+        Arrays.fill(cost,Integer.MAX_VALUE);
+        PriorityQueue<pair>q=new PriorityQueue<>(new Comparator<pair>(){
+            public int compare(pair a,pair b){
+                return a.wt-b.wt;
+            }
+        });
+        
+        cost[0]=0;
+        ways[0]=1;
+        q.offer(new pair(0,0));
+        boolean[]vis=new boolean [n+1];
+        while(!q.isEmpty()){
+            
+            
+            pair rem=q.poll();
+            vis[rem.v]=true;
+            
+            for(pair nei:gr.get(rem.v)){
+             
+                
+                int curcost=cost[nei.v];
+                int newcost=rem.wt+nei.wt;
+                if(newcost<curcost){
+                    cost[nei.v]=(rem.wt+nei.wt)%mod;
+                    q.offer(new pair(nei.v,cost[nei.v]));
+                    ways[nei.v]=ways[rem.v];
+                }
+                else if(newcost==curcost){
+                    ways[nei.v]=(ways[rem.v]+ways[nei.v])%mod;
+                }
+                
+            }
+        }
+        return ways[n-1];
+        
+        
+    }
+}
+
+
+https://www.geeksforgeeks.org/problems/number-of-ways-to-arrive-at-destination/1
