@@ -14,7 +14,7 @@ class Solution{
                     if(nr>=0&&nc>=0&&nr<grid.length&&nc<grid[0].length&&grid[nr][nc]==1){
                       int cur=i*N+j;
                       int newValue=nr*N+nc;
-                      d.union(cur,newValue);
+                      d.unionBySize(cur,newValue);
                     }
                 }
             }
@@ -37,7 +37,7 @@ class Solution{
                     }
                     int to=0;
                     for(int y:s){
-                        to+=d.rank[y];
+                        to+=d.size[y];
                     }
                     to+=1;
                     ans=Math.max(to,ans);
@@ -47,7 +47,7 @@ class Solution{
         
         for(int i=0;i<N*N;i++){
            // System.out.print(d.rank[i]+".  ");
-            ans=Math.max(ans,d.rank[d.find(i)]);
+            ans=Math.max(ans,d.size[d.find(i)]);
         }
         return ans;
         
@@ -55,13 +55,14 @@ class Solution{
         
     }
     class DSU{
-        int []rank,par;
+        int []size,par,rank;
         DSU(int n){
             rank=new int[n];
             par=new int[n];
+            size=new int[n];
             for(int i=0;i<n;i++){
                 par[i]=i;
-                rank[i]=1;
+                size[i]=1;
             }
             
         }
@@ -71,17 +72,31 @@ class Solution{
             }
             return par[i];
         }
-        void union(int u,int v){
+        void unionBySize(int u,int v){
+            int uth=find(u);
+            int vth=find(v);
+            if(uth==vth)
+            return;
+            if(size[uth]<size[vth]){
+                size[vth]+=size[uth];
+                par[uth]=vth;
+            }
+            else{
+                size[uth]+=size[vth];
+                par[vth]=uth;
+            }
+        }
+        void unionByRank(int u,int v){
             int uth=find(u);
             int vth=find(v);
             if(uth==vth)
             return;
             if(rank[uth]<rank[vth]){
-                rank[vth]+=rank[uth];
+                rank[vth]+=1;
                 par[uth]=vth;
             }
             else{
-                rank[uth]+=rank[vth];
+                rank[uth]+=1;
                 par[vth]=uth;
             }
         }
@@ -89,5 +104,5 @@ class Solution{
 }
 
 
-
 https://www.geeksforgeeks.org/problems/making-a-large-island/1
+
