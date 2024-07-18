@@ -1,0 +1,93 @@
+class Solution{
+    public int largestIsland(int N,int[][] grid) 
+    {
+        // code here
+        DSU d=new DSU(N*N);
+        int dist[][]={{-1,0},{1,0},{0,1},{0,-1}};
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                if(grid[i][j]==0)
+                continue;
+                for(int k=0;k<4;++k){
+                    int nr=dist[k][0]+i;
+                    int nc=dist[k][1]+j;
+                    if(nr>=0&&nc>=0&&nr<grid.length&&nc<grid[0].length&&grid[nr][nc]==1){
+                      int cur=i*N+j;
+                      int newValue=nr*N+nc;
+                      d.union(cur,newValue);
+                    }
+                }
+            }
+        }
+        int ans=0;
+        
+          for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                if(grid[i][j]==0)
+                {
+                    HashSet<Integer>s=new HashSet<>();
+                    for(int k=0;k<4;++k){
+                        int nr=dist[k][0]+i;
+                        int nc=dist[k][1]+j;
+                        if(nr>=0&&nc>=0&&nr<grid.length&&nc<grid[0].length&&grid[nr][nc]==1){
+                          int newValue=nr*N+nc;
+                          int parent=d.find(newValue);
+                          s.add(parent);
+                        }
+                    }
+                    int to=0;
+                    for(int y:s){
+                        to+=d.rank[y];
+                    }
+                    to+=1;
+                    ans=Math.max(to,ans);
+                }
+            }
+        }
+        
+        for(int i=0;i<N*N;i++){
+           // System.out.print(d.rank[i]+".  ");
+            ans=Math.max(ans,d.rank[d.find(i)]);
+        }
+        return ans;
+        
+        
+        
+    }
+    class DSU{
+        int []rank,par;
+        DSU(int n){
+            rank=new int[n];
+            par=new int[n];
+            for(int i=0;i<n;i++){
+                par[i]=i;
+                rank[i]=1;
+            }
+            
+        }
+        int find(int i){
+            if(i!=par[i]){
+                par[i]=find(par[i]);
+            }
+            return par[i];
+        }
+        void union(int u,int v){
+            int uth=find(u);
+            int vth=find(v);
+            if(uth==vth)
+            return;
+            if(rank[uth]<rank[vth]){
+                rank[vth]+=rank[uth];
+                par[uth]=vth;
+            }
+            else{
+                rank[uth]+=rank[vth];
+                par[vth]=uth;
+            }
+        }
+    }
+}
+
+
+
+https://www.geeksforgeeks.org/problems/making-a-large-island/1
