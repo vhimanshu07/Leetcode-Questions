@@ -1,0 +1,44 @@
+
+class Solution {
+    public boolean search(int[] arr, int key) {
+        // Complete this function
+        int l=0,h=arr.length-1;
+        while(l<=h){
+            int mid=l+(h-l)/2;
+            
+            if(key==arr[mid])
+            return true;
+            int left=arr[l];
+            int right=arr[h];
+            if(arr[mid]==left&&arr[mid]==right){
+                l++;
+                h--;
+                continue;
+            }
+            
+            // left sorted
+            if(left<=arr[mid]){
+                if(left<=key&&key<=arr[mid]){
+                    h=mid-1;
+                }
+                else
+                l=mid+1;
+            }
+            // right sorted
+            else{
+                if(right>=key&&key>=arr[mid]){
+                    l=mid+1;
+                }
+                else{
+                    h=mid-1;
+                }
+            }
+            
+        }
+        return false;
+    
+    }
+}
+
+
+https://leetcode.com/problems/search-in-rotated-sorted-array-ii/
